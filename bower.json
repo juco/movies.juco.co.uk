@@ -1,0 +1,15 @@
+{
+  "name": "movies.juco.co.uk",
+  "version": "1.0.0",
+  "authors": [
+    "juco <julian@juco.co.uk>"
+  ],
+  "description": "http://movies.juco.co.uk",
+  "license": "MIT",
+  "homepage": "http://juco.co.uk",
+  "dependencies": {
+    "angular": "=1.4.1",
+    "angular-route": "=1.4.1",
+    "angular-mocks": "=1.4.1"
+  }
+}
