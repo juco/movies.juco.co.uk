@@ -1,7 +1,9 @@
 $color-filled-star: #E8D823;
+$star-font-size: 15px;
 
 .rating {
   unicode-bidi: bidi-override;
+  font-size: $star-font-size;
 }
 .rating > span {
   display: inline-block;

@@ -1,10 +1,15 @@
-$sh-border-top: 3px solid $color-primary;
-$sh-border-bottom: 1px solid $color-text;
-
 .site-header {
-  border-top: $sh-border-top;
-  border-bottom: $sh-border-bottom;
-  height: 60px;
+  border-top: $header-border-top;
+  border-bottom: $header-border-bottom;
+  height: $navbar-height;
+
+  .logo-container {
+    display: inline-block;
+    padding: 0 25px;
+    img {
+      width: $logo-width;
+    }
+  }
 
   .full-nav {
     list-style: none;
@@ -22,3 +27,4 @@ $sh-border-bottom: 1px solid $color-text;
     }
   }
 }
+

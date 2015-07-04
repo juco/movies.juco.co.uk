@@ -5,17 +5,3 @@
 @import "list";
 @import "rating";
 
-
-@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,400,700,200italic,400italic,700italic);
-html {
-  font-family: sans-serif;
-  /* 1 */
-  -ms-text-size-adjust: 100%;
-  /* 2 */
-  -webkit-text-size-adjust: 100%;
-  /* 2 */ 
-}
-
-body {
-  -webkit-font-smoothing: antialiased;
-}
