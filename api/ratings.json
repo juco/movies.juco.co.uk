@@ -1,0 +1,15 @@
+[
+  {
+    "title": "Fight Club",
+    "blurb": "The first rule of fight club is...",
+    "rating": 10,
+    "year": "1999",
+    "cover": "http://ia.media-imdb.com/images/M/MV5BMTYxNDA3MDQwNl5BMl5BanBnXkFtZTcwNTU4Mzc1Nw@@._V1._SY209_CR0,0,140,209_.jpg"
+  }, {
+    "title": "The Office (American)",
+    "blurb": "That's what *she* said",
+    "rating": 9,
+    "year": "2005",
+    "cover": "http://ia.media-imdb.com/images/M/MV5BMTgzNjAzMDE0NF5BMl5BanBnXkFtZTcwNTEyMzM3OA@@._V1._SY209_CR7,0,140,209_.jpg"
+  }
+]

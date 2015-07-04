@@ -9,15 +9,21 @@ angular.module('juco.movies.services', [])
       this.year = options.year || UNKNOWN;
       this.rating = options.rating || UNKNOWN;
       this.blurb = options.blurb || UNKNOWN;
+      this.cover = options.cover || 'unknown.jpg';
     }
 
     return Movie;
   })
 
-  .factory('ratings', function($http, API_URL) {
+  .factory('ratings', function($http, API_URL, Movie) {
     return {
       fetch: function() {
-        return $http.get(API_URL + 'ratings.json');
+        return $http.get(API_URL + 'ratings.json')
+          .then(function(res) {
+            return res.data.map(function(item) {
+              return new Movie(item);
+            });
+          });
       }
     };
   });

@@ -1,7 +1,9 @@
 angular.module('juco.movies', [
   'ngRoute',
 
-  'juco.movies.controllers'
+  'juco.movies.controllers',
+  'juco.movies.services',
+  'juco.movies.directives'
 ])
 
   .config(function($routeProvider) {

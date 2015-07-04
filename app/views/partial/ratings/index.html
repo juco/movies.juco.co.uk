@@ -1,3 +1,15 @@
 <h1>My Ratings</h1>
 
-{{ foo }}
+<div class="list-container">
+  <div class="list">
+    <div class="list-item" ng-repeat="movie in movies track by $index">
+      <a class="link" href="#">
+        <img class="image" ng-src="{{movie.cover}}" />
+      </a>
+      <div class="details">
+        <span class="star"></span>
+        <star-rating rating="{{ movie.rating }}"></star-rating>
+      </div>
+    </div>
+  </div>
+</div>

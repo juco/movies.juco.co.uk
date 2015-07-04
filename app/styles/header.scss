@@ -1,0 +1,24 @@
+$sh-border-top: 3px solid $color-primary;
+$sh-border-bottom: 1px solid $color-text;
+
+.site-header {
+  border-top: $sh-border-top;
+  border-bottom: $sh-border-bottom;
+  height: 60px;
+
+  .full-nav {
+    list-style: none;
+    display: inline-block;
+    float: right;
+
+    .nav-item {
+      display: inline-block;
+      margin: 0 15px;
+      
+      a {
+        color: $color-text;
+        text-decoration: none;
+      }
+    }
+  }
+}

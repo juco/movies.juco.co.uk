@@ -1,0 +1,16 @@
+$color-filled-star: #E8D823;
+
+.rating {
+  unicode-bidi: bidi-override;
+}
+.rating > span {
+  display: inline-block;
+  position: relative;
+  width: 1.1em;
+  color: $color-text-secondary;
+}
+.rating > span.fill:before {
+   content: "\2605";
+   position: absolute;
+   color: $color-filled-star;
+}

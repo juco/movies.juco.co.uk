@@ -10,11 +10,21 @@
   </head>
 
   <body>
+    <header class="site-header">
+      <ul class="full-nav">
+        <li class="nav-item"><a href="#">Ratings</a></li>
+        <li class="nav-item"><a href="#">Watch List</a></li>
+        <li class="nav-item"><a href="http://juco.co.uk">About Me</a></li>
+      </ul>
+    </header>
+
     <div ng-view></div>
 
     <script type="text/javascript" src="/vendor/angular/angular.js"></script>
     <script type="text/javascript" src="/vendor/angular-route/angular-route.js"></script>
     <script type="text/javascript" src="/js/app.js"></script>
+    <script type="text/javascript" src="/js/services.js"></script>
+    <script type="text/javascript" src="/js/directives.js"></script>
     <script type="text/javascript" src="/js/controllers.js"></script>
   </body>
 </html>

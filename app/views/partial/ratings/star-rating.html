@@ -1,0 +1,4 @@
+<div class="rating">
+  <span ng-repeat="i in nTimes(maxRating) track by $index"
+        ng-class="{fill: $index+1 <= rating}">☆</span>
+</div>
