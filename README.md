@@ -1,2 +1,3 @@
-# movies.juco.co.uk
-Movie ratings 'n such
+# Juco :heart: Movies
+
+A site that will eventially display my IMDB ratings and watchlist
