@@ -35,4 +35,16 @@ describe('Directives', function() {
       expect(isolateScope.rating).toEqual('7');
     });
   });
+
+  describe('type-filter', function() {
+    beforeEach(function() {
+      el = $compile('<type-filter></type-filter>')($scope);
+      $scope.$apply();
+    });
+
+    it('should set the required scope properties', function() {
+      expect($scope.filters).toBeDefined();
+      expect($scope.select).toBeDefined();
+    });
+  });
 });

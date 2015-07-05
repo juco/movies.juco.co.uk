@@ -53,7 +53,7 @@ describe('Movie services', function() {
       $httpBackend.whenGET(API_URL + 'ratings.json').respond([
         { title: 'Foo', year: '2011', rating: 8, blurb: 'bar' }
       ]);
-      ratings.fetch().then(function(response) {
+      ratings.get().then(function(response) {
         expectation(response);
       });
 

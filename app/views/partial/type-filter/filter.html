@@ -1,0 +1,9 @@
+<div class="type-filter">
+  <a href="#" 
+     ng-repeat="filter in filters track by $index"
+     class="filter"
+     ng-class="{selected: filter.selected}"
+     ng-click="select(filter, $event)">
+    <span>{{ filter.name }}</span>
+  </a>
+</div>

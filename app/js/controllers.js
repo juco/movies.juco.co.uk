@@ -1,7 +1,7 @@
 angular.module('juco.movies.controllers', [])
 
   .controller('RatingsCtrl', function($scope, ratings) {
-    ratings.fetch()
+    ratings.get()
       .then(function(result) {
         // Mock some data for now...
         $scope.movies = [];

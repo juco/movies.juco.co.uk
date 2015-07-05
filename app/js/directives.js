@@ -15,4 +15,27 @@ angular.module('juco.movies.directives', [])
         };
       }
     };
+  })
+
+  .directive('typeFilter', function() {
+    return {
+      restrict: 'E',
+      templateUrl: '/views/partial/type-filter/filter.html',
+      link: function(scope) {
+        scope.filters = [
+          { name: 'All', key: 'all', selected: true },
+          { name: 'Movies', key: 'movies' },
+          { name: 'TV', key: 'tv' }
+        ];
+
+        scope.select = function(filter, $event) {
+          $event.preventDefault();
+
+          scope.filters.map(function(f) {
+            f.selected = f === filter;
+            return f;
+          });
+        };
+      }
+    };
   });

@@ -15,15 +15,27 @@ angular.module('juco.movies.services', [])
     return Movie;
   })
 
-  .factory('ratings', function($http, API_URL, Movie) {
-    return {
-      fetch: function() {
-        return $http.get(API_URL + 'ratings.json')
-          .then(function(res) {
-            return res.data.map(function(item) {
-              return new Movie(item);
-            });
-          });
+  .service('ratings', function($q, $http, API_URL, Movie) {
+    var movies = [];
+
+    this.get = function(filters) {
+      var defer = $q.defer();
+      filters = filters || [];
+
+      if (movies.length) {
+        defer.resolve(movies);
+        return defer.promise;
       }
+
+      return fetch();
+    };
+
+    var fetch = function() {
+      return $http.get(API_URL + 'ratings.json')
+        .then(function(res) {
+          return res.data.map(function(item) {
+            return new Movie(item);
+          });
+        });
     };
   });
