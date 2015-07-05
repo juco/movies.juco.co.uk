@@ -6,10 +6,14 @@ angular.module('juco.movies', [
   'juco.movies.directives'
 ])
 
-  .config(function($routeProvider) {
+  .config(function($routeProvider, $locationProvider) {
+    $locationProvider.html5Mode(true);
+    $locationProvider.hashPrefix = '!';
+
     $routeProvider
-      .when('/', {
+      .when('/ratings', {
         templateUrl: '/views/partial/ratings/index.html',
         controller: 'RatingsCtrl'
-      });
+      })
+      .otherwise('/ratings');
   });

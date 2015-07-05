@@ -11,7 +11,8 @@
   "author": "julian@juco.co.uk",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.12.4"
+    "express": "^4.12.4",
+    "serve-favicon": "^2.3.0"
   },
   "devDependencies": {
     "phantomjs": "^1.9.8",
