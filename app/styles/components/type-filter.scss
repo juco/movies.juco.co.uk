@@ -1,0 +1,24 @@
+.type-filter {
+  width: 100%;
+  margin: 20px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+
+  .filter {
+    max-width: 150px;
+    margin: 0 10px;
+    border: 1px solid $color-secondary;
+    text-decoration: none;
+    flex-grow: 1;
+
+    &.selected {
+      border: 2px solid $color-primary;
+    }
+
+    span {
+      line-height: 50px;
+      color: $color-secondary;
+    }
+  }
+}

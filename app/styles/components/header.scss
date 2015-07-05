@@ -1,11 +1,13 @@
+$logo-width: 200px;
+
 .site-header {
-  border-top: $header-border-top;
-  border-bottom: $header-border-bottom;
-  height: $navbar-height;
+  border-top: $border-lg-primary;
+  border-bottom: $border-base-tertiary;
+  height: $space-xxl;
 
   .logo-container {
     display: inline-block;
-    padding: 0 25px;
+    padding: 0 $space-lg;
     img {
       width: $logo-width;
     }
@@ -18,10 +20,10 @@
 
     .nav-item {
       display: inline-block;
-      margin: 0 15px;
+      margin: 0 $space-base;
       
       a {
-        color: $color-text;
+        color: $color-secondary;
         text-decoration: none;
       }
     }

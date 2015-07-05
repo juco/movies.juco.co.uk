@@ -1,0 +1,17 @@
+/* Spacing */
+$space-base:  10px;
+$space-xs:    floor($space-base / 4);
+$space-sm:    floor($space-base / 2);
+$space-lg:    floor($space-base * 2);
+$space-xl:    floor($space-base * 4);
+$space-xxl:   floor($space-base * 6);
+
+/* Screen */
+$screen-xs-min: 375px; 
+$screen-sm-min: 768px; 
+$screen-md-min: 992px; 
+$screen-lg-min: 1200px;
+
+$screen-xs-max: ($screen-sm-min - 1);
+$screen-sm-max: ($screen-md-min - 1);
+$screen-md-max: ($screen-lg-min - 1);
