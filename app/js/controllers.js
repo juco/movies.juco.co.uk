@@ -4,11 +4,11 @@ angular.module('juco.movies.controllers', [])
     ratings.get()
       .then(function(result) {
         // Mock some data for now...
-        $scope.movies = [];
-        for(var i = 1; i < 5; i++) {
-          $scope.movies = $scope.movies.concat(result);
-        }
+        //$scope.movies = [];
+        //for(var i = 1; i < 5; i++) {
+        //  $scope.movies = $scope.movies.concat(result);
+        //}
 
-        //$scope.movies = result;
+        $scope.movies = result;
       });
   });

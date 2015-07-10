@@ -1,0 +1,14 @@
+<div class="list-container">
+  <type-filter></type-filter>
+  <div class="list">
+    <div class="list-item" ng-repeat="movie in movies track by $index">
+      <a class="link" href="#">
+        <img class="image" ng-src="{{movie.cover}}" />
+      </a>
+      <div class="details">
+        <span class="star"></span>
+        <star-rating rating="{{ movie.rating }}"></star-rating>
+      </div>
+    </div>
+  </div>
+</div>

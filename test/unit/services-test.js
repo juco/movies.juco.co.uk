@@ -39,20 +39,23 @@ describe('Movie services', function() {
   describe('ratings', function() {
     var $rootScope
       , $httpBackend
+      , $http
       , ratings
       , API_URL;
 
     beforeEach(inject(function($injector) {
       $rootScope = $injector.get('$rootScope').$new();
       $httpBackend = $injector.get('$httpBackend');
+      $http = $injector.get('$http');
       ratings = $injector.get('ratings');
       API_URL = $injector.get('API_URL');
-    }));
 
-    it('should fetch the ratings', function() {
       $httpBackend.whenGET(API_URL + 'ratings.json').respond([
         { title: 'Foo', year: '2011', rating: 8, blurb: 'bar' }
       ]);
+    }));
+
+    it('should fetch the ratings', function() {
       ratings.get().then(function(response) {
         expectation(response);
       });
@@ -63,6 +66,21 @@ describe('Movie services', function() {
       function expectation(result) {
         expect(result[0].title).toEqual('Foo');
       }
+    });
+
+    it('should not make API requests when we have the data', function() {
+      spyOn($http, 'get').and.callThrough();
+      ratings.get();
+      $httpBackend.flush();
+
+      ratings.get();
+      expect($http.get.calls.count()).toBe(1);
+    });
+
+    xdescribe('filter', function() {
+      it('should allow for adding a filter object', function() {
+
+      });
     });
   });
 });

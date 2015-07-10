@@ -10,6 +10,7 @@ angular.module('juco.movies.services', [])
       this.rating = options.rating || UNKNOWN;
       this.blurb = options.blurb || UNKNOWN;
       this.cover = options.cover || 'unknown.jpg';
+      this.is_movie = options.is_movie;
     }
 
     return Movie;
@@ -19,15 +20,15 @@ angular.module('juco.movies.services', [])
     var movies = [];
 
     this.get = function(filters) {
-      var defer = $q.defer();
-      filters = filters || [];
-
       if (movies.length) {
-        defer.resolve(movies);
-        return defer.promise;
+        return $q.when(movies);
       }
 
-      return fetch();
+      return fetch()
+        .then(function(result) {
+          movies = result;
+          return movies;
+        });
     };
 
     var fetch = function() {
@@ -37,5 +38,15 @@ angular.module('juco.movies.services', [])
             return new Movie(item);
           });
         });
+    };
+
+    var filter = function(movies) {
+      if (typeFilter) {
+        movies.filter(function(movie) {
+          if (typeFilter === 'movie') return movie.is_movie === true;
+          if (typeFilter === 'tv') return movie.is_movies === false;
+          return true;
+        });
+      }
     };
   });
