@@ -1,7 +1,6 @@
 describe('Directives', function() {
   var $scope
     , $compile
-    , $controller
     , el
     , isolateScope;
 
@@ -13,19 +12,7 @@ describe('Directives', function() {
   beforeEach(inject(function($injector) {
     $scope = $injector.get('$rootScope').$new();
     $compile = $injector.get('$compile');
-    $controller = $injector.get('$controller');
   }));
-
-  describe('movieListCtrl', function() {
-    var ctrl;
-    beforeEach(function() {
-      ctrl = $controller('movieListCtrl', {});
-    });
-
-    it('should have the required methods defined', function() {
-      expect(ctrl.addFilter).toBeDefined();
-    });
-  });
 
   describe('star-rating', function() {
     beforeEach(function() {
@@ -46,18 +33,6 @@ describe('Directives', function() {
 
     it('should set the correct rating', function() {
       expect(isolateScope.rating).toEqual('7');
-    });
-  });
-
-  xdescribe('type-filter', function() {
-    beforeEach(function() {
-      el = $compile('<type-filter></type-filter>')($scope);
-      $scope.$apply();
-    });
-
-    it('should set the required scope properties', function() {
-      expect($scope.filters).toBeDefined();
-      expect($scope.select).toBeDefined();
     });
   });
 });

@@ -1,4 +1,19 @@
 describe('Movie services', function() {
+  var mockMoviesResponse = [
+    {
+      title: 'Foo',
+      year: '2011',
+      rating: 8,
+      blurb: 'bar',
+      is_movie: false
+    }, {
+      title: 'Bar',
+      year: '2015',
+      rating: 3,
+      blurb: 'Foo',
+      is_movie: true
+    }
+  ];
   beforeEach(module('juco.movies.services'));
 
   describe('Movie', function() {
@@ -15,13 +30,15 @@ describe('Movie services', function() {
         title: 'Foo',
         year: '2015',
         rating: 5,
-        blurb: 'Some blurb'
+        blurb: 'Some blurb',
+        is_movie: true
       });
 
       expect(movie.title).toEqual('Foo');
       expect(movie.year).toEqual('2015');
       expect(movie.rating).toEqual(5);
       expect(movie.blurb).toEqual('Some blurb');
+      expect(movie.isMovie).toBe(true);
     });
 
     it('should default to unknown for missing data', function() {
@@ -36,27 +53,25 @@ describe('Movie services', function() {
     });
   });
 
-  describe('ratings', function() {
+  describe('movies', function() {
     var $rootScope
       , $httpBackend
       , $http
-      , ratings
+      , movies
       , API_URL;
 
     beforeEach(inject(function($injector) {
       $rootScope = $injector.get('$rootScope').$new();
       $httpBackend = $injector.get('$httpBackend');
       $http = $injector.get('$http');
-      ratings = $injector.get('ratings');
+      movies = $injector.get('movies');
       API_URL = $injector.get('API_URL');
 
-      $httpBackend.whenGET(API_URL + 'ratings.json').respond([
-        { title: 'Foo', year: '2011', rating: 8, blurb: 'bar' }
-      ]);
+      $httpBackend.whenGET(API_URL + 'ratings.json').respond(mockMoviesResponse);
     }));
 
     it('should fetch the ratings', function() {
-      ratings.get().then(function(response) {
+      movies.get().then(function(response) {
         expectation(response);
       });
 
@@ -70,16 +85,36 @@ describe('Movie services', function() {
 
     it('should not make API requests when we have the data', function() {
       spyOn($http, 'get').and.callThrough();
-      ratings.get();
+      movies.get();
       $httpBackend.flush();
 
-      ratings.get();
+      movies.get();
       expect($http.get.calls.count()).toBe(1);
     });
 
-    xdescribe('filter', function() {
-      it('should allow for adding a filter object', function() {
+    describe('movieFilter', function() {
+      var movieFilter;
 
+      beforeEach(inject(function($injector) {
+        movieFilter = $injector.get('movieFilter');
+      }));
+
+      it('should throw an error when filtering with an unknown ' +
+          'function', function() {
+        movieFilter.addFilterDesc({ type: 'foo', key: 'moo', value: 'bar' });
+        expect(function() {
+          return movieFilter.filter([]);
+        }).toThrowError();
+      });
+
+      it('should filter the result set on type', function() {
+        var movies = [
+          { name: 'Movie', isMovie: true },
+          { name: 'TV', isMovie: false }
+        ];
+        movieFilter.addFilterDesc({ type: 'type', value: 'tv' });
+        expect(movieFilter.filter(movies).length).toBe(1);
+        expect(movieFilter.filter(movies)[0].name).toEqual('TV');
       });
     });
   });

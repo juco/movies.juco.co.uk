@@ -5,28 +5,28 @@ angular.module('juco.movies.services', [])
 
   .service('Movie', function(UNKNOWN) {
     function Movie(options) {
-      this.title = options.title || UNKNOWN;
-      this.year = options.year || UNKNOWN;
-      this.rating = options.rating || UNKNOWN;
-      this.blurb = options.blurb || UNKNOWN;
-      this.cover = options.cover || 'unknown.jpg';
-      this.is_movie = options.is_movie;
+      this.title   = options.title  || UNKNOWN;
+      this.year    = options.year   || UNKNOWN;
+      this.rating  = options.rating || UNKNOWN;
+      this.blurb   = options.blurb  || UNKNOWN;
+      this.cover   = options.cover  || 'unknown.jpg';
+      this.isMovie = options.is_movie;
     }
 
     return Movie;
   })
 
-  .service('ratings', function($q, $http, API_URL, Movie) {
+  .service('movies', function($q, $http, API_URL, Movie, movieFilter) {
     var movies = [];
 
     this.get = function(filters) {
       if (movies.length) {
-        return $q.when(movies);
+        return $q.when(movieFilter.filter(movies));
       }
 
       return fetch()
         .then(function(result) {
-          movies = result;
+          movies = movieFilter.filter(result);
           return movies;
         });
     };
@@ -39,14 +39,46 @@ angular.module('juco.movies.services', [])
           });
         });
     };
+  })
 
-    var filter = function(movies) {
-      if (typeFilter) {
-        movies.filter(function(movie) {
-          if (typeFilter === 'movie') return movie.is_movie === true;
-          if (typeFilter === 'tv') return movie.is_movies === false;
-          return true;
-        });
-      }
+  .service('movieFilter', function(movieFilterRegistry) {
+    var filterDescs = [];
+
+    this.addFilterDesc = function(filterDesc) {
+      filterDesc = filterByType(filterDesc.type) || filterDesc;
+      filterDescs.push(filterDesc);
     };
+
+    this.filter = function(movies) {
+      filterDescs.forEach(function(filter) {
+        var filterFn = movieFilterRegistry[filter.type];
+
+        if (typeof filterFn === 'function') {
+          movies = movies.filter(filterFn(filter));
+        } else {
+          throw new Error('Filter function filterBy' + filter.type
+              + ' does not exist');
+        }
+      });
+
+      return movies;
+    };
+
+    var filterByType = function(type) {
+      var found = filterDescs.filter(function(filter) {
+        return filter.type === type;
+      });
+      return found.length ? found : null;
+    };
+  })
+
+  .value('movieFilterRegistry', {
+    type: function(filter) {
+      return function(movie) {
+        if (filter.value === 'all') return true;
+        if (filter.value === 'movies' && movie.isMovie === true) return true;
+        if (filter.value === 'tv' && movie.isMovie === false) return true;
+        return false;
+      };
+    }
   });
