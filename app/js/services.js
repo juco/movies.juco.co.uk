@@ -19,7 +19,7 @@ angular.module('juco.movies.services', [])
   .service('movies', function($q, $http, API_URL, Movie, movieFilter) {
     var movies = [];
 
-    this.get = function(filters) {
+    this.get = function() {
       if (movies.length) {
         return $q.when(movieFilter.filter(movies));
       }
@@ -45,8 +45,16 @@ angular.module('juco.movies.services', [])
     var filterDescs = [];
 
     this.addFilterDesc = function(filterDesc) {
-      filterDesc = filterByType(filterDesc.type) || filterDesc;
-      filterDescs.push(filterDesc);
+      if (filterExists(filterDesc)) {
+        filterDescs = filterDescs.map(function(item) {
+          if (item.type === filterDesc.type) {
+            item = filterDesc;
+          }
+          return filterDesc;
+        });
+      } else {
+        filterDescs.push(filterDesc);
+      }
     };
 
     this.filter = function(movies) {
@@ -65,10 +73,15 @@ angular.module('juco.movies.services', [])
     };
 
     var filterByType = function(type) {
-      var found = filterDescs.filter(function(filter) {
+      return filterDescs.filter(function(filter) {
         return filter.type === type;
+      })[0] || null;
+    };
+
+    var filterExists = function(filter) {
+      return filterDescs.some(function(item) {
+        return item.type === filter.type;
       });
-      return found.length ? found : null;
     };
   })
 

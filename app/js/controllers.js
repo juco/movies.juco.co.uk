@@ -5,4 +5,14 @@ angular.module('juco.movies.controllers', [])
       .then(function(result) {
         $scope.movies = result;
       });
+  })
+
+  .controller('movieListCtrl', function($scope, movies, movieFilter) {
+    this.filter = function(filterDesc) {
+      movieFilter.addFilterDesc(filterDesc);
+      movies.get().then(function(result) {
+        $scope.movies = result;
+      });
+    };
   });
+

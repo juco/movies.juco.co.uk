@@ -1,12 +1,22 @@
 angular.module('juco.movies.directives', [])
 
+  .controller('movieListCtrl', function($scope, movies, movieFilter) {
+    this.filter = function(filterDesc) {
+      movieFilter.addFilterDesc(filterDesc);
+      movies.get().then(function(result) {
+        $scope.movies = result;
+      });
+    };
+  })
+
   .directive('movieList', function() {
     return {
       restrict: 'E',
       templateUrl: '/views/partial/movie-list/list.html',
       scope: {
         movies: '='
-      }
+      },
+      controller: 'movieListCtrl'
     };
   })
 
@@ -27,21 +37,27 @@ angular.module('juco.movies.directives', [])
     };
   })
 
-  .directive('typeFilter', function(movieFilter, movies) {
+  .directive('typeFilter', function() {
     return {
       restrict: 'E',
       templateUrl: '/views/partial/type-filter/filter.html',
-      link: function(scope, el, attrs) {
+      require: '^movieList',
+      link: function(scope, el, attrs, movieListCtrl) {
         scope.filters = [
-          { type: 'type', name: 'All', key: 'all', selected: true },
-          { type: 'type', name: 'Movies', key: 'movies' },
-          { type: 'type', name: 'TV', key: 'tv' }
+          { type: 'type', name: 'All', value: 'all', selected: true },
+          { type: 'type', name: 'Movies', value: 'movies' },
+          { type: 'type', name: 'TV', value: 'tv' }
         ];
 
-        scope.select = function(filterDesc, $event) {
-          $event.preventDefault();
-          movieFilter.addFilterDesc(filterDesc);
-          scope.movies = movies.get();
+        scope.select = function(filterDesc, e) {
+          e.preventDefault();
+
+          scope.filters.map(function(f) {
+            f.selected = f === filterDesc;
+            return f;
+          });
+
+          movieListCtrl.filter(filterDesc);
         };
       }
     };

@@ -67,7 +67,8 @@ describe('Movie services', function() {
       movies = $injector.get('movies');
       API_URL = $injector.get('API_URL');
 
-      $httpBackend.whenGET(API_URL + 'ratings.json').respond(mockMoviesResponse);
+      $httpBackend.whenGET(API_URL + 'ratings.json')
+        .respond(mockMoviesResponse);
     }));
 
     it('should fetch the ratings', function() {
@@ -108,13 +109,33 @@ describe('Movie services', function() {
       });
 
       it('should filter the result set on type', function() {
-        var movies = [
+        var mockMovies = [
           { name: 'Movie', isMovie: true },
           { name: 'TV', isMovie: false }
         ];
         movieFilter.addFilterDesc({ type: 'type', value: 'tv' });
-        expect(movieFilter.filter(movies).length).toBe(1);
-        expect(movieFilter.filter(movies)[0].name).toEqual('TV');
+        expect(movieFilter.filter(mockMovies).length).toBe(1);
+        expect(movieFilter.filter(mockMovies)[0].name).toEqual('TV');
+      });
+
+      it('should allow for changing filter descriptions', function() {
+        var mockMovies = [{ name: 'Movie', isMovie: true }];
+        movieFilter.addFilterDesc({ type: 'type', value: 'tv' });
+        movieFilter.addFilterDesc({ type: 'type', value: 'movies' });
+        expect(movieFilter.filter(mockMovies).length).toBe(1);
+        expect(movieFilter.filter(mockMovies)[0].name).toEqual('Movie');
+      });
+    });
+
+    describe('movieFilterRegistry', function() {
+      var movieFilterRegistry;
+
+      beforeEach(inject(function($injector) {
+        movieFilterRegistry = $injector.get('movieFilterRegistry');
+      }));
+
+      it('should have the required filters defined', function() {
+        expect(typeof movieFilterRegistry.type).toEqual('function');
       });
     });
   });
