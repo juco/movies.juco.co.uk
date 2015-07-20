@@ -3,3 +3,4 @@ npm-debug.log
 vendor/
 .sass-cache/
 dist/
+coverage/

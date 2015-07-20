@@ -2,10 +2,6 @@ module.exports = function(config) {
   config.set({
     basePath: '../../',
 
-    preprocessors: {
-      'app/views/partial/**/*.html': 'ng-html2js'
-   },
-
    files: [
      'vendor/angular/angular.js',
      'vendor/angular-route/angular-route.js',
@@ -14,6 +10,13 @@ module.exports = function(config) {
      'test/unit/**/*-test.js',
      'app/**/*.html'
    ],
+
+    reporters: ['progress', 'coverage'],
+
+    preprocessors: {
+      'app/views/partial/**/*.html': 'ng-html2js',
+      'app/js/**/*.js': 'coverage'
+   },
 
     ngHtml2JsPreprocessor: {
       moduleName: 'juco.movies.partials',
@@ -29,9 +32,8 @@ module.exports = function(config) {
    plugins: [
      'karma-phantomjs-launcher',
      'karma-jasmine',
-     'karma-ng-html2js-preprocessor'
-   ],
-
-   reporters: ['progress']
+     'karma-ng-html2js-preprocessor',
+     'karma-coverage'
+   ]
   });
 };
